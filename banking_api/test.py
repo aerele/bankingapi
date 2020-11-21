@@ -1,6 +1,8 @@
-class Test:
-    def fetch_balance():
-        return {'RESPONSE': 'SUCCESS',
+# -*- coding: utf-8 -*-
+
+class Test(object):
+    def fetch_balance(self):
+        res = {'RESPONSE': 'SUCCESS',
                 'AGGR_ID': 'CUST0383',
                 'CORP_ID': 'ESSDEEKN22052020',
                 'USER_ID': 'MANOJKUM',
@@ -9,8 +11,11 @@ class Test:
                 'DATE': '05/09/20 09:37:22',
                 'EFFECTIVEBAL': '960368.91',
                 'CURRENCY': 'INR'}
-    def fetch_statement():
-        return {'URN': 'URN',
+        return res['EFFECTIVEBAL']
+
+    def fetch_statement(self):
+        stmt = []
+        res = {'URN': 'URN',
                 'AGGR_ID': 'CUST0383',
                 'CORP_ID': 'ESSDEEKN22052020',
                 'USER_ID': 'MANOJKUM',
@@ -216,3 +221,10 @@ class Test:
                 'BALANCE': '-21,13,284.36'}],
                 'RESPONSE': 'SUCCESS',
                 'ACCOUNTNO': '106151000003'}
+        for record in res['Record']:
+            stmt.append({'txn_date':record['TXNDATE'],
+                        'credit': record['AMOUNT'] if record['TYPE']== 'CR' else 0,
+                        'debit': record['AMOUNT'] if record['TYPE']== 'DR' else 0,
+                        'balance': record['BALANCE'],
+                        'remarks': record['REMARKS']})
+        return stmt

@@ -1,2 +1,5 @@
-from banking_api.test import Test
-from banking_api.common_config import CommonConfig
+# -*- coding: utf-8 -*-
+from .common_provider import CommonProvider
+
+__all__ = ['CommonProvider']
+
