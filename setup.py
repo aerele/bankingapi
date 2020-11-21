@@ -7,7 +7,7 @@ setup(
     description='Banking API Integration',
     author='Aerele',
     license='MIT',
-    url='https://github.com/aerele/bankingapi.git',
+    url='https://github.com/aerele/bankingapi',
     author_email='admin@aerele.in',
     packages=['banking_api'],
     keywords=[
