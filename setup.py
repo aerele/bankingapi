@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
+import banking_api
 
 from setuptools import find_packages, setup
 setup(
-    name='bankingapi',
-    version='0.1.0',
+    name='banking_api',
+    version= banking_api.__version__,
     description='Banking API Integration',
     author='Aerele',
     license='MIT',
-    url='https://github.com/aerele/bankingapi',
+    download_url='https://github.com/KaviyaPeriyasamy/bankingapi',
     author_email='admin@aerele.in',
     packages=['banking_api'],
     keywords=[
