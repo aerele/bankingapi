@@ -14,4 +14,5 @@ setup(
     keywords=[
         'banking_api'
     ],
+    python_requires='>=3.6'
 )
