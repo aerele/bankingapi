@@ -8,7 +8,7 @@ setup(
     description='Banking API Integration',
     author='Aerele',
     license='MIT',
-    download_url='https://github.com/KaviyaPeriyasamy/bankingapi',
+    download_url='https://github.com/aerele/bankingapi',
     author_email='admin@aerele.in',
     packages=['banking_api'],
     keywords=[
