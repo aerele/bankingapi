@@ -3,7 +3,7 @@ import importlib
 def get_provider_class(provider_name):
     provider_file_dict = {'Test': ['test','Test']}
     if provider_name in provider_file_dict:
-        provider_module = importlib.import_module(provider_file_dict[provider_name][0])
+        provider_module = importlib.import_module(f'banking_api.{provider_file_dict[provider_name][0]}')
         provider_class = getattr(provider_module, provider_file_dict[provider_name][1])
         return provider_class
     raise Exception("No implementation found for the given provider")
