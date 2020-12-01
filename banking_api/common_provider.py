@@ -1,7 +1,8 @@
 import importlib
 
 def get_provider_class(provider_name):
-    provider_module = importlib.import_module(f'banking_api.{provider_name.lower().replace(' ','_')}')
+    provider_file = provider_name.lower().replace(' ','_')
+    provider_module = importlib.import_module(f'banking_api.{provider_file}')
     provider_class = getattr(provider_module, provider_name.title().replace(' ',''))
     return provider_class
 
