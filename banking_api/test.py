@@ -11,7 +11,7 @@ class Test(object):
                 'DATE': '05/09/20 09:37:22',
                 'EFFECTIVEBAL': '960368.91',
                 'CURRENCY': 'INR'}
-        return res['EFFECTIVEBAL']
+        return {'account_no':res['ACCOUNTNO'], 'date': res['DATE'], 'balance': res['EFFECTIVEBAL'], 'currency': res['CURRENCY']}
 
     def fetch_statement(self):
         stmt = []
