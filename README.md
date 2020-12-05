@@ -52,12 +52,14 @@ Just create a provider's api python file inside ```banking_api``` module
     Example response format:
     ```
     [{'txn_date':'03-12-2020 08:16:34',
+    'txn_id':'S32528713',
     'credit': '92,18,756.36',
     'debit': 0,
     'balance': '1,22,18,756.36',
     'remarks': 'No remarks found'
     },
     {'txn_date':'02-12-2020 08:16:34',
+    'txn_id':'S52528715',
     'credit': '12,18,756.36',
     'debit': 0,
     'balance': '1,32,18,756.36',
