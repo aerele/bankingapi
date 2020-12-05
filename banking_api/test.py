@@ -223,6 +223,7 @@ class Test(object):
                 'ACCOUNTNO': '106151000003'}
         for record in res['Record']:
             stmt.append({'txn_date':record['TXNDATE'],
+                        'txn_id': record['TRANSACTIONID'],
                         'credit': record['AMOUNT'] if record['TYPE']== 'CR' else 0,
                         'debit': record['AMOUNT'] if record['TYPE']== 'DR' else 0,
                         'balance': record['BALANCE'],
