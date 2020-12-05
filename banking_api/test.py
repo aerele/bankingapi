@@ -227,5 +227,6 @@ class Test(object):
                         'credit': record['AMOUNT'] if record['TYPE']== 'CR' else 0,
                         'debit': record['AMOUNT'] if record['TYPE']== 'DR' else 0,
                         'balance': record['BALANCE'],
+                        'account_no': res['ACCOUNTNO'],
                         'remarks': record['REMARKS']})
         return stmt

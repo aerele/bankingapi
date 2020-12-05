@@ -56,13 +56,15 @@ Just create a provider's api python file inside ```banking_api``` module
     'credit': '92,18,756.36',
     'debit': 0,
     'balance': '1,22,18,756.36',
-    'remarks': 'No remarks found'
+    'remarks': 'No remarks found',
+    'account_no': '106151000003'
     },
     {'txn_date':'02-12-2020 08:16:34',
     'txn_id':'S52528715',
     'credit': '12,18,756.36',
     'debit': 0,
     'balance': '1,32,18,756.36',
-    'remarks': 'No remarks found'
+    'remarks': 'No remarks found',
+    'account_no': '106151000003'
     }]
     ```
