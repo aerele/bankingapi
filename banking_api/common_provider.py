@@ -18,7 +18,7 @@ class CommonProvider(object):
         :param provider: bank api provider name
         :param config_info: configuration info that is needed for various provider API's function
         """
-        self.provider_module = get_provider_class(provider)()
+        self.provider_module = get_provider_class(provider)(config_info)
         self.config_info = config_info
 
     def fetch_balance(self):
