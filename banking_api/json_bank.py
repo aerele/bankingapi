@@ -19,23 +19,17 @@ class JsonBank(object):
 		paytmParams = dict()
 		order_id = self.generate_order_id()
 		paytmParams["body"] = {
-		 	"requestType"   : "Payment",
-		    "mid"           : self.config['merchant_id'],
-		    "websiteName"   : "WEBSTAGING",
-		    "orderId"       : order_id,
-		    "callbackUrl"   : "https://merchant.com/callback",
-		    "txnAmount"     : {
-		        "value"     : self.config['txn_info']['amount'],
-		        "currency"  : "INR",
-		    },
-		    "userInfo"      : {
-		        "custId"    : self.config['txn_info']['cust_id'],
-		    },
+		"requestType": "Payment",
+	 	"mid": self.config['merchant_id'],
+		"websiteName": "WEBSTAGING",
+		"orderId": order_id,
+		"callbackUrl": "https://merchant.com/callback",
+		"txnAmount": {"value": self.config['txn_info']['amount'],
+		"currency": "INR"},
+		"userInfo": {"custId": self.config['txn_info']['cust_id']}
 		}
 		checksum = PaytmChecksum.generateSignature(json.dumps(paytmParams["body"]), self.config['merchant_id'])
-		paytmParams["head"] = {
-		    "signature"    : checksum
-		}
+		paytmParams["head"] = {"signature": checksum}
 		post_data = json.dumps(paytmParams)
 		# for Staging
 		url = f"https://securegw-stage.paytm.in/theia/api/v1/initiateTransaction?mid={self.config['merchant_id']}&orderId={order_id}"
