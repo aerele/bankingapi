@@ -2,8 +2,6 @@
 import banking_api
 
 from setuptools import find_packages, setup
-with open('requirements.txt') as f:
-	install_requires = f.read().strip().split('\n')
 setup(
     name='banking_api',
     version= banking_api.__version__,
@@ -17,5 +15,5 @@ setup(
         'banking_api'
     ],
     python_requires='>=3.6',
-    install_requires=install_requires
+    install_requires=['paytmchecksum==1.7.0']
 )
