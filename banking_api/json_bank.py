@@ -20,7 +20,7 @@ class JsonBank(object):
 		order_id = self.generate_order_id()
 		paytmParams["body"] = {
 		"requestType": "Payment",
-	 	"mid": self.config['merchant_id'],
+		"mid": self.config['merchant_id'],
 		"websiteName": "WEBSTAGING",
 		"orderId": order_id,
 		"callbackUrl": "https://merchant.com/callback",
