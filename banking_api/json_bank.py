@@ -12,7 +12,8 @@ class JsonBank(object):
 		self.config = config
 	
 	def generate_order_id(self):
-		return f'OREDRID_{'{:0>4}'.format(secrets.randbelow(10**4))}'
+		id = '{:0>4}'.format(secrets.randbelow(10**4))
+		return f'OREDRID_{id}'
 
 	def intiate_transaction(self):
 		paytmParams = dict()
