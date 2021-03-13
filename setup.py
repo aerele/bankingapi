@@ -14,6 +14,5 @@ setup(
     keywords=[
         'banking_api'
     ],
-    python_requires='>=3.6',
-    install_requires=['paytmchecksum==1.7.0']
+    python_requires='>=3.6'
 )

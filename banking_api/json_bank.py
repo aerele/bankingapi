@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 import requests
 import json
-import PaytmChecksum
-import secrets
 
 class JsonBank(object):
 	def __init__(self, config=None):
