@@ -24,8 +24,8 @@ class JsonBank(object):
 					"resultMsg": "Success"
 				},
 				"txnToken": "fe8798999efewf889090erfre",
-				"isPromoCodeValid": false,
-				"authenticated": false
+				"isPromoCodeValid": False,
+				"authenticated": False
 			}
 		}
 		return res["body"]["resultInfo"]["resultStatus"]
