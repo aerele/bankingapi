@@ -25,3 +25,9 @@ class CommonProvider(object):
 
     def fetch_statement(self):
         return self.provider_module.fetch_statement()
+
+    def initiate_transaction(self):
+        return self.provider_module.initiate_transaction()
+    
+    def get_transaction_status(self):
+        return self.provider_module.get_transaction_status()

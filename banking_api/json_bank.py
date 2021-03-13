@@ -9,7 +9,7 @@ class JsonBank(object):
 		"""
 		self.config = config
 	
-	def intiate_transaction(self):
+	def initiate_transaction(self):
 		res = {
 			"head": {
 				"responseTimestamp": "152696112101",
@@ -30,7 +30,7 @@ class JsonBank(object):
 		}
 		return res["body"]["resultInfo"]["resultStatus"]
 
-	def transaction_status(self):
+	def get_transaction_status(self):
 		res = {
 			"head": {
 				"responseTimestamp": "152696112101",
