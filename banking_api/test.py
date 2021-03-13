@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 
 class Test(object):
+	def __init__(self, config=None):
+		"""
+		:param config: merchant_id, order_id, user_info, txn_info
+		"""
+		self.config = config
+
     def fetch_balance(self):
         res = {'RESPONSE': 'SUCCESS',
                 'AGGR_ID': 'CUST0383',

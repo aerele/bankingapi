@@ -19,14 +19,9 @@ class CommonProvider(object):
         :param config_info: configuration info that is needed for various provider API's function
         """
         self.provider_module = get_provider_class(provider)(config_info)
-        self.config_info = config_info
 
     def fetch_balance(self):
-        if self.config_info:
-            return self.provider_module.fetch_balance(self.config_info)
         return self.provider_module.fetch_balance()
 
     def fetch_statement(self):
-        if self.config_info:
-            return self.provider_module.fetch_statement(self.config_info)
         return self.provider_module.fetch_statement()
