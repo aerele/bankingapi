@@ -30,11 +30,11 @@ class JsonBank(object):
 		}
 		result = {'status': None, 'msg': res["body"]["resultInfo"]["resultMsg"]}
 		if res["body"]["resultInfo"]["resultStatus"] == 'S':
-			result['status'] == 'Success'
+			result['status'] = 'Success'
 		if res["body"]["resultInfo"]["resultStatus"] == 'F':
-			result['status'] == 'Failed'
+			result['status'] = 'Failed'
 		if res["body"]["resultInfo"]["resultStatus"] == 'U':
-			result['status'] == 'Error'
+			result['status'] = 'Error'
 		return result
 
 	def get_transaction_status(self):
@@ -66,9 +66,9 @@ class JsonBank(object):
 		}
 		result = {'status': None, 'msg': res["body"]["resultInfo"]["resultMsg"]}
 		if res["body"]["resultInfo"]["resultStatus"] == 'TXN_SUCCESS':
-			result['status'] == 'Success'
+			result['status'] = 'Success'
 		if res["body"]["resultInfo"]["resultStatus"] == 'TXN_FAILURE':
-			result['status'] == 'Failed'
+			result['status'] = 'Failed'
 		if res["body"]["resultInfo"]["resultStatus"] == 'PENDING':
-			result['status'] == 'Pending'
+			result['status'] = 'Pending'
 		return result
