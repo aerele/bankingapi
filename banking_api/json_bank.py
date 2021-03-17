@@ -28,7 +28,7 @@ class JsonBank(object):
 				"authenticated": False
 			}
 		}
-		result = {'msg': res["body"]["resultInfo"]["resultMsg"]}
+		result = {'status': None, 'msg': res["body"]["resultInfo"]["resultMsg"]}
 		if res["body"]["resultInfo"]["resultStatus"] == 'S':
 			result['status'] == 'Success'
 		if res["body"]["resultInfo"]["resultStatus"] == 'F':
@@ -64,7 +64,7 @@ class JsonBank(object):
 				"txnDate": "2019-02-20 12:35:20.0"
 			}
 		}
-		result = {'msg': res["body"]["resultInfo"]["resultMsg"]}
+		result = {'status': None, 'msg': res["body"]["resultInfo"]["resultMsg"]}
 		if res["body"]["resultInfo"]["resultStatus"] == 'TXN_SUCCESS':
 			result['status'] == 'Success'
 		if res["body"]["resultInfo"]["resultStatus"] == 'TXN_FAILURE':
