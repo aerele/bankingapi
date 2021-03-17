@@ -28,7 +28,14 @@ class JsonBank(object):
 				"authenticated": False
 			}
 		}
-		return res["body"]["resultInfo"]["resultStatus"]
+		result = {'msg': res["body"]["resultInfo"]["resultMsg"]}
+		if res["body"]["resultInfo"]["resultStatus"] == 'S':
+			result['status'] == 'Success'
+		if res["body"]["resultInfo"]["resultStatus"] == 'F':
+			result['status'] == 'Failed'
+		if res["body"]["resultInfo"]["resultStatus"] == 'U':
+			result['status'] == 'Error'
+		return result
 
 	def get_transaction_status(self):
 		res = {
@@ -57,4 +64,11 @@ class JsonBank(object):
 				"txnDate": "2019-02-20 12:35:20.0"
 			}
 		}
-		return res["body"]["resultInfo"]["resultStatus"]
+		result = {'msg': res["body"]["resultInfo"]["resultMsg"]}
+		if res["body"]["resultInfo"]["resultStatus"] == 'TXN_SUCCESS':
+			result['status'] == 'Success'
+		if res["body"]["resultInfo"]["resultStatus"] == 'TXN_FAILURE':
+			result['status'] == 'Failed'
+		if res["body"]["resultInfo"]["resultStatus"] == 'PENDING':
+			result['status'] == 'Pending'
+		return result
