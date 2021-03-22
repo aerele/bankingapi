@@ -100,7 +100,7 @@ class Icici(object):
 		response = self.send_request(0, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.get_decrypted_response(response)
-			return json.dumps(decrypted_res, indent=4, sort_keys=False))
+			return json.dumps(decrypted_res, indent=4, sort_keys=False)
 		else:
 			return str(response.content)
 		
@@ -114,7 +114,7 @@ class Icici(object):
 		response = self.send_request(1, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.bank_statement_decrypted_response(response)
-			return json.dumps(decrypted_res, indent=4, sort_keys=False))
+			return json.dumps(decrypted_res, indent=4, sort_keys=False)
 		else:
 			return str(response.content)
 
@@ -127,7 +127,7 @@ class Icici(object):
 		response = self.send_request(1, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.bank_statement_decrypted_response(response)
-			return json.dumps(decrypted_res, indent=4, sort_keys=False))
+			return json.dumps(decrypted_res, indent=4, sort_keys=False)
 		else:
 			return str(response.content)
 
@@ -140,6 +140,6 @@ class Icici(object):
 		response = self.send_request(3, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.get_decrypted_response(response)
-			return json.dumps(decrypted_res, indent=4, sort_keys=False))
+			return json.dumps(decrypted_res, indent=4, sort_keys=False)
 		else:
 			return str(response.content)
