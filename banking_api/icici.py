@@ -46,12 +46,12 @@ class Icici(object):
 				]
 
 	def get_headers(self):
-		header = {}
-		header["accept"] = "*/*"
-		header["content-length"] = "684"
-		header["content-type"] = "text/plain"
-		header["apikey"] = self.api_key
-		self.header = header
+		headers = {}
+		headers["accept"] = "*/*"
+		headers["content-length"] = "684"
+		headers["content-type"] = "text/plain"
+		headers["apikey"] = self.api_key
+		self.headers = headers
 
 	def generate_aes_key(self):
 		rnd = Crypto.Random.OSRNG.posix.new().read(AES.block_size)
@@ -72,6 +72,7 @@ class Icici(object):
 		cipher = Cipher_PKCS1_v1_5.new(rsa_key)
 		raw_cipher_data = base64.b64decode(response)
 		decrypted_res = cipher.decrypt(raw_cipher_data, b'x')
+		print(decrypted_res)
 		return decrypted_res
 
 	def get_encrypted_request(self, params):
@@ -85,11 +86,12 @@ class Icici(object):
 		return cipher_text
 
 	def send_request(self, url_id, cipher_text):
+		print(cipher_text)
 		if self.proxy_dict:
 			response = requests.request("POST", self.urls[url_id], headers=self.headers, data=cipher_text, proxies=self.proxy_dict)
 		else:
 			response = requests.request("POST", self.urls[url_id], headers=self.headers, data=cipher_text)
-
+		print(response)
 		return response
 		
 
