@@ -76,6 +76,7 @@ class Icici(object):
 		return decrypted_res
 
 	def get_encrypted_request(self, params):
+		print(params)
 		source = json.dumps(params)
 		key = RSA.importKey(open(self.file_paths['public_key']).read())
 
@@ -86,7 +87,7 @@ class Icici(object):
 		return cipher_text
 
 	def send_request(self, url_id, cipher_text):
-		print(cipher_text)
+		print(self.headers, proxies)
 		if self.proxy_dict:
 			response = requests.request("POST", self.urls[url_id], headers=self.headers, data=cipher_text, proxies=self.proxy_dict)
 		else:
