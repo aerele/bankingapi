@@ -57,7 +57,7 @@ class Icici(object):
 		rnd = Crypto.Random.OSRNG.posix.new().read(AES.block_size)
 		return rnd
 
-	def bank_statement_decrypted_response(self):
+	def bank_statement_decrypted_response(self, response):
 		response ={}
 		Enckey = base64.b64decode(response['encryptedKey'])
 		Deckey = cipher.decrypt(Enckey, b'x')
@@ -129,7 +129,7 @@ class Icici(object):
 		cipher_text = self.get_encrypted_request(params)
 		response = self.send_request(1, cipher_text)
 		if response.status_code == 200:
-			decrypted_res = self.bank_statement_decrypted_response(response)
+			decrypted_res = self.get_decrypted_response(response)
 			return json.dumps(decrypted_res, indent=4, sort_keys=False)
 		else:
 			return str(response.content)
