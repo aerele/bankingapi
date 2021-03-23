@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Test(object):
-	def __init__(self, config=None):
+	def __init__(self, config=None, use_sandbox = None, proxy_dict = None, file_paths = None):
 		"""
 		:param config: merchant_id, order_id, user_info, txn_info
 		"""
