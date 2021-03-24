@@ -123,7 +123,18 @@ class Icici(object):
 
 	
 
-	def initiate_transaction(self, filters):
+	def initiate_transaction_without_otp(self, filters):
+		params = self.config
+		params.update(filters)
+		cipher_text = self.get_encrypted_request(params)
+		response = self.send_request(1, cipher_text)
+		if response.status_code == 200:
+			decrypted_res = self.get_decrypted_response(response)
+			return json.dumps(decrypted_res, indent=4, sort_keys=False)
+		else:
+			return str(response.content)
+
+	def initiate_transaction_with_otp(self, filters):
 		params = self.config
 		params.update(filters)
 		cipher_text = self.get_encrypted_request(params)
@@ -146,3 +157,6 @@ class Icici(object):
 			return json.dumps(decrypted_res, indent=4, sort_keys=False)
 		else:
 			return str(response.content)
+
+	def send_otp(self, filters):
+		return

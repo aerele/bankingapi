@@ -46,8 +46,14 @@ class CommonProvider(object):
 	def fetch_statement(self, filters):
 		return self.provider_module.fetch_statement(filters)
 
-	def initiate_transaction(self, filters):
-		return self.provider_module.initiate_transaction(filters)
+	def initiate_transaction_without_otp(self, filters):
+		return self.provider_module.initiate_transaction_without_otp(filters)
+
+	def initiate_transaction_with_otp(self, filters):
+		return self.provider_module.initiate_transaction_with_otp(filters)
+
+	def send_otp(self, filters):
+		return self.provider_module.send_otp(filters)
 
 	def get_transaction_status(self, filters):
 		return self.provider_module.get_transaction_status(filters)
