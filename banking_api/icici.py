@@ -87,7 +87,7 @@ class Icici(object):
 		return cipher_text
 
 	def send_request(self, url_id, cipher_text):
-		print(self.headers, proxies)
+		print(self.headers, self.proxy_dict)
 		if self.proxy_dict:
 			response = requests.request("POST", self.urls[url_id], headers=self.headers, data=cipher_text, proxies=self.proxy_dict)
 		else:
