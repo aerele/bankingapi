@@ -44,6 +44,13 @@ class Icici(object):
 				'https://apibankingonesandbox.icicibank.com/api/Corporate/CIB/v1/Transaction',
 				'https://apibankingonesandbox.icicibank.com/api/Corporate/CIB/v1/TransactionInquiry'
 				]
+		else:
+			self.urls = [
+				'https://apibankingone.icicibank.com/api/Corporate/CIB/v1/BalanceInquiry',
+				'https://apibankingone.icicibank.com/api/Corporate/CIB/v1/AccountStatement',
+				'https://apibankingone.icicibank.com/api/Corporate/CIB/v1/Transaction',
+				'https://apibankingone.icicibank.com/api/Corporate/CIB/v1/TransactionInquiry'
+				]
 
 	def get_headers(self):
 		headers = {}
