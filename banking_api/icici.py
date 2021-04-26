@@ -68,10 +68,10 @@ class Icici(object):
 		return plaintext
 
 	def get_decrypted_response(self, response):
-		print(response.text)
+		print(response.content)
 		rsa_key = RSA.importKey(open(self.file_paths['private_key'], "rb").read())
 		cipher = Cipher_PKCS1_v1_5.new(rsa_key)
-		raw_cipher_data = base64.b64decode(response.text)
+		raw_cipher_data = base64.b64decode(response.content)
 		decrypted_res = cipher.decrypt(raw_cipher_data, b'x')
 		print(decrypted_res)
 		return decrypted_res
