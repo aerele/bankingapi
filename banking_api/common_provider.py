@@ -11,7 +11,7 @@ class CommonProvider(object):
 	"""
 	common provider main class
 	"""
-	def __init__(self, provider, config = None, use_sandbox = None, proxy_dict = None, file_paths = None):
+	def __init__(self, provider, config = None, use_sandbox = None, proxy_dict = None, file_paths = None, site_path = None):
 
 		# config = {"APIKEY": "i1431423123123123",
 		# 		"CORPID":"Test45",
@@ -37,8 +37,9 @@ class CommonProvider(object):
 		:param use_sandbox: pass 1 for sandbox env and 0 for live env
 		:param proxy_dict: proxy details with ip and port as dict
 		:param file_paths: private and public key file paths
+		:param site_path: site path
 		"""
-		self.provider_module = get_provider_class(provider)(config, use_sandbox, proxy_dict, file_paths)
+		self.provider_module = get_provider_class(provider)(config, use_sandbox, proxy_dict, file_paths, site_path)
 
 	def fetch_balance(self):
 		return self.provider_module.fetch_balance()

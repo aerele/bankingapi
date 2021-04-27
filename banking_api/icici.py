@@ -9,10 +9,11 @@ from Crypto.Cipher import PKCS1_v1_5 as Cipher_PKCS1_v1_5
 from Crypto.Cipher import AES
 import Crypto.Cipher.AES
 import Crypto.Random
+import logging
 
 
 class Icici(object):
-	def __init__(self, config=None, use_sandbox = None, proxy_dict = None, file_paths = None):
+	def __init__(self, config=None, use_sandbox = None, proxy_dict = None, file_paths = None, site_path=None):
 
 		# txn_details = { "UNIQUEID": "BOBP2021035678",
 		# 				"IFSC":"ICIC736893",
@@ -33,6 +34,7 @@ class Icici(object):
 		self.api_key = config.pop('APIKEY')
 		self.config = config
 		self.file_paths = file_paths
+		self.site_path = site_path
 		self.proxy_dict = proxy_dict
 		self.get_headers()
 
@@ -100,7 +102,11 @@ class Icici(object):
 			response = requests.request("POST", self.urls[url_id], headers=self.headers, data=cipher_text, proxies=self.proxy_dict)
 		else:
 			response = requests.request("POST", self.urls[url_id], headers=self.headers, data=cipher_text)
-		print(response)
+		logging.basicConfig(filename=f"{self.site_path}/api_response.log",
+				format='%(asctime)s %(message)s',
+				filemode='w')
+		logger=logging.getLogger()
+		logger.info(f'Request Params: {self.params} Response: {response.content}')
 		return response
 		
 
@@ -134,6 +140,7 @@ class Icici(object):
 	def initiate_transaction_without_otp(self, filters):
 		params = self.config
 		params.update(filters)
+		self.params = params
 		cipher_text = self.get_encrypted_request(params)
 		response = self.send_request(1, cipher_text)
 		if response.status_code == 200:
