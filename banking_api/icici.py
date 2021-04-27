@@ -107,7 +107,9 @@ class Icici(object):
 				format='%(asctime)s %(message)s',
 				filemode='w')
 		logger=logging.getLogger()
-		logger.info('%s'%response.content)
+		logger.setLevel(logging.INFO)
+		logger.info('Request params:%s',self.params)
+		logger.info('Response: %s',response.content)
 		return response
 		
 
