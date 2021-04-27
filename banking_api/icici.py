@@ -97,7 +97,7 @@ class Icici(object):
 		return cipher_text
 
 	def send_request(self, url_id, cipher_text):
-		print(self.headers, self.proxy_dict)
+		print(self.headers, self.proxy_dict, self.site_path, self.params)
 		if self.proxy_dict:
 			response = requests.request("POST", self.urls[url_id], headers=self.headers, data=cipher_text, proxies=self.proxy_dict)
 		else:
@@ -106,7 +106,8 @@ class Icici(object):
 				format='%(asctime)s %(message)s',
 				filemode='w')
 		logger=logging.getLogger()
-		logger.info(f'Request Params: {self.params} Response: {response.content}')
+		logger.info('Request param: %s',self.params)
+		logger.info('Response: %s',response.content)
 		return response
 		
 
