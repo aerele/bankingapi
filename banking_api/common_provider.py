@@ -41,8 +41,8 @@ class CommonProvider(object):
 		"""
 		self.provider_module = get_provider_class(provider)(config, use_sandbox, proxy_dict, file_paths, site_path)
 
-	def fetch_balance(self):
-		return self.provider_module.fetch_balance()
+	def fetch_balance(self, filters):
+		return self.provider_module.fetch_balance(filters)
 
 	def fetch_statement(self, filters):
 		return self.provider_module.fetch_statement(filters)
