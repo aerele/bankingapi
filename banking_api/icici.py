@@ -13,7 +13,7 @@ import logging
 
 
 class Icici(object):
-	def __init__(self, config=None, use_sandbox = None, proxy_dict = None, file_paths = None, site_path=None):
+	def __init__(self, config=None, use_sandbox = None, proxy_dict = None, file_paths = None, site_path=''):
 
 		# txn_details = { "UNIQUEID": "BOBP2021035678",
 		# 				"IFSC":"ICIC736893",
@@ -35,6 +35,7 @@ class Icici(object):
 		self.config = config
 		self.file_paths = file_paths
 		self.site_path = site_path
+		self.params = ''
 		self.proxy_dict = proxy_dict
 		self.get_headers()
 
@@ -102,12 +103,11 @@ class Icici(object):
 			response = requests.request("POST", self.urls[url_id], headers=self.headers, data=cipher_text, proxies=self.proxy_dict)
 		else:
 			response = requests.request("POST", self.urls[url_id], headers=self.headers, data=cipher_text)
-		logging.basicConfig(filename=f"{self.site_path}/api_response.log",
+		logging.basicConfig(filename=f"{self.site_path}/api_log.log",
 				format='%(asctime)s %(message)s',
 				filemode='w')
 		logger=logging.getLogger()
-		logger.info('Request param: %s',self.params)
-		logger.info('Response: %s',response.content)
+		logger.info('%s - %s', self.params, response.content)
 		return response
 		
 
