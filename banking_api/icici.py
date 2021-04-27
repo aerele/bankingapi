@@ -83,6 +83,7 @@ class Icici(object):
 		cipher = Cipher_PKCS1_v1_5.new(rsa_key)
 		raw_cipher_data = base64.b64decode(response.content)
 		decrypted_res = cipher.decrypt(raw_cipher_data, b'x')
+		decrypted_res = decrypted_res.decode("utf-8") 
 		print(decrypted_res)
 		return decrypted_res
 
