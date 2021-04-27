@@ -113,9 +113,11 @@ class Icici(object):
 		return response
 		
 
-	def fetch_balance(self):
+	def fetch_balance(self, filters):
 		params = self.config
 		params.pop('AGGRNAME')
+		params.update(filters)
+		self.params = params
 		cipher_text = self.get_encrypted_request(params)
 		response = self.send_request(0, cipher_text)
 		if response.status_code == 200:
