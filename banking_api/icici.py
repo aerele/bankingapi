@@ -114,9 +114,9 @@ class Icici(object):
 		response = self.send_request(0, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.get_decrypted_response(response)
-			return json.dumps(decrypted_res, indent=4, sort_keys=False)
+			return json.dumps(json.loads(decrypted_res), indent=4, sort_keys=False)
 		else:
-			return str(response.content)
+			return json.dumps(json.loads(response.content), indent=4, sort_keys=False)
 		
 
 
@@ -128,9 +128,9 @@ class Icici(object):
 		response = self.send_request(1, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.bank_statement_decrypted_response(response)
-			return json.dumps(decrypted_res, indent=4, sort_keys=False)
+			return json.dumps(json.loads(decrypted_res), indent=4, sort_keys=False)
 		else:
-			return str(response.content)
+			return json.dumps(json.loads(response.content), indent=4, sort_keys=False)
 
 	
 
@@ -142,9 +142,9 @@ class Icici(object):
 		response = self.send_request(2, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.get_decrypted_response(response)
-			return json.dumps(decrypted_res, indent=4, sort_keys=False)
+			return json.dumps(json.loads(decrypted_res), indent=4, sort_keys=False)
 		else:
-			return str(response.content)
+			return json.dumps(json.loads(response.content), indent=4, sort_keys=False)
 
 	def initiate_transaction_with_otp(self, filters):
 		params = self.config
@@ -153,9 +153,9 @@ class Icici(object):
 		response = self.send_request(2, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.get_decrypted_response(response)
-			return json.dumps(decrypted_res, indent=4, sort_keys=False)
+			return json.dumps(json.loads(decrypted_res), indent=4, sort_keys=False)
 		else:
-			return str(response.content)
+			return json.dumps(json.loads(response.content), indent=4, sort_keys=False)
 
 
 	def get_transaction_status(self, filters):
@@ -166,9 +166,9 @@ class Icici(object):
 		response = self.send_request(3, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.get_decrypted_response(response)
-			return json.dumps(decrypted_res, indent=4, sort_keys=False)
+			return json.dumps(json.loads(decrypted_res), indent=4, sort_keys=False)
 		else:
-			return str(response.content)
+			return json.dumps(json.loads(response.content), indent=4, sort_keys=False)
 
 	def send_otp(self, filters):
 		return
