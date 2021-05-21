@@ -77,17 +77,17 @@ class Icici(object):
 		return plaintext
 
 	def get_decrypted_response(self, response):
-		print(response.content)
 		rsa_key = RSA.importKey(open(self.file_paths['private_key'], "rb").read())
 		cipher = Cipher_PKCS1_v1_5.new(rsa_key)
-		raw_cipher_data = base64.b64decode(response.content)
+		try:
+			raw_cipher_data = base64.b64decode(response.content)
+		except:
+			raise Exception(f"Invalid Response {response.content}")
 		decrypted_res = cipher.decrypt(raw_cipher_data, b'x')
 		decrypted_res = decrypted_res.decode("utf-8") 
-		print(decrypted_res)
 		return decrypted_res
 
 	def get_encrypted_request(self, params):
-		print(params)
 		source = json.dumps(params)
 		key = RSA.importKey(open(self.file_paths['public_key']).read())
 
@@ -98,7 +98,6 @@ class Icici(object):
 		return cipher_text
 
 	def send_request(self, url_id, cipher_text):
-		print(self.headers, self.proxy_dict, self.site_path, self.params)
 		if self.proxy_dict:
 			response = requests.request("POST", self.urls[url_id], headers=self.headers, data=cipher_text, proxies=self.proxy_dict)
 		else:
