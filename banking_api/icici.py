@@ -9,7 +9,6 @@ from Crypto.Cipher import PKCS1_v1_5 as Cipher_PKCS1_v1_5
 from Crypto.Cipher import AES
 import Crypto.Cipher.AES
 import Crypto.Random
-import logging
 
 
 class Icici(object):
@@ -104,13 +103,6 @@ class Icici(object):
 			response = requests.request("POST", self.urls[url_id], headers=self.headers, data=cipher_text, proxies=self.proxy_dict)
 		else:
 			response = requests.request("POST", self.urls[url_id], headers=self.headers, data=cipher_text)
-		logging.basicConfig(filename=f"{self.site_path}/api_log.log",
-				format='%(asctime)s %(message)s',
-				filemode='w')
-		logger=logging.getLogger()
-		logger.setLevel(logging.INFO)
-		logger.info('Request params:%s',self.params)
-		logger.info('Response: %s',response.content)
 		return response
 		
 
