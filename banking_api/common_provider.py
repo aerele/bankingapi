@@ -39,6 +39,13 @@ class CommonProvider(object):
 		:param file_paths: private and public key file paths
 		:param site_path: site path
 		"""
+		self.transaction_type_mapping = {	
+			'ICICI': {'RTGS': 'RTG', 'NEFT': 'RGS', 'IMPS': 'IFS',	
+			'Internal Payments': 'OWN', 'External Payments': 'TPA',	
+			'Virtual A/c Payments': 'VAP'	
+			}	
+		}	
+		self.provider = provider
 		self.provider_module = get_provider_class(provider)(config, use_sandbox, proxy_dict, file_paths, site_path)
 
 	def fetch_balance(self, filters):
@@ -48,10 +55,10 @@ class CommonProvider(object):
 		return self.provider_module.fetch_statement(filters)
 
 	def initiate_transaction_without_otp(self, filters):
-		return self.provider_module.initiate_transaction_without_otp(filters)
+		return self.provider_module.initiate_transaction_without_otp(filters, self.transaction_type_mapping[self.provider])
 
 	def initiate_transaction_with_otp(self, filters):
-		return self.provider_module.initiate_transaction_with_otp(filters)
+		return self.provider_module.initiate_transaction_with_otp(filters, self.transaction_type_mapping[self.provider])
 
 	def send_otp(self, filters):
 		return self.provider_module.send_otp(filters)
