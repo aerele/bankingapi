@@ -39,6 +39,8 @@ class Icici(object):
 		self.get_headers()
 
 		# url dict for sandbox & live
+		# add transaction with otp api endpoint - 3rd index
+		# add send otp api endpoint	- 5th index
 		if use_sandbox:
 			self.urls =  [
 				'https://apibankingonesandbox.icicibank.com/api/Corporate/CIB/v1/BalanceInquiry',
@@ -156,24 +158,34 @@ class Icici(object):
 		else:	
 			raise Exception(response.content)
 
-	def initiate_transaction_with_otp(self, filters):
-		params = self.config
-		params.update(filters)
-		cipher_text = self.get_encrypted_request(params)
-		response = self.send_request(2, cipher_text)
-		if response.status_code == 200:
-			decrypted_res = self.get_decrypted_response(response)
-			return json.dumps(json.loads(decrypted_res), indent=4, sort_keys=False)
+	def initiate_transaction_with_otp(self, filters, transaction_type_mapping):	
+		params = self.config	
+		filters['TXNTYPE'] = transaction_type_mapping[filters['TXNTYPE']]	
+		params.update(filters)	
+		self.params = params	
+		cipher_text = self.get_encrypted_request(params)	
+		response = self.send_request(3, cipher_text)	
+		if response.status_code == 200:	
+			decrypted_res = self.get_decrypted_response(response)	
+			final_res = {}	
+			if 'STATUS' in decrypted_res:	
+				final_res ['status'] = decrypted_res['STATUS'].upper()	
+			if 'UTRNUMBER' in decrypted_res:	
+				final_res['utr_number'] =  decrypted_res['UTRNUMBER']	
+			if 'MESSAGE' in decrypted_res:	
+				final_res['message'] = decrypted_res['MESSAGE']	
+			if 'ERRORCODE' in decrypted_res:	
+				final_res['error_code'] = decrypted_res['ERRORCODE']	
+			return final_res	
 		else:
-			return json.dumps(json.loads(response.content), indent=4, sort_keys=False)
-
+			raise Exception(response.content)
 
 	def get_transaction_status(self, filters):
 		params = self.config
 		params.pop('AGGRNAME')
 		params.update(filters)
 		cipher_text = self.get_encrypted_request(params)
-		response = self.send_request(3, cipher_text)
+		response = self.send_request(4, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.get_decrypted_response(response)
 			final_res = {}	
@@ -188,4 +200,18 @@ class Icici(object):
 			raise Exception(response.content)
 
 	def send_otp(self, filters):
-		return
+		params = self.config	
+		params.update(filters)	
+		self.params = params	
+		cipher_text = self.get_encrypted_request(params)	
+		response = self.send_request(5, cipher_text)	
+		if response.status_code == 200:	
+			decrypted_res = self.get_decrypted_response(response)	
+			final_res = {}	
+			if 'RESPONSE' in decrypted_res:	
+				final_res ['status'] = decrypted_res['RESPONSE'].upper()	
+			if 'MESSAGE' in decrypted_res:	
+				final_res['message'] = decrypted_res['MESSAGE']	
+			return final_res	
+		else:	
+			raise Exception(response.content)
