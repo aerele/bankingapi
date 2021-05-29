@@ -145,38 +145,42 @@ class Icici(object):
 		response = self.send_request(2, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.get_decrypted_response(response)
-			final_res = {}	
-			if 'STATUS' in decrypted_res:	
-				final_res ['status'] = decrypted_res['STATUS'].upper()	
-			if 'UTRNUMBER' in decrypted_res:	
-				final_res['utr_number'] =  decrypted_res['UTRNUMBER']	
-			if 'MESSAGE' in decrypted_res:	
-				final_res['message'] = decrypted_res['MESSAGE']	
-			if 'ERRORCODE' in decrypted_res:	
-				final_res['error_code'] = decrypted_res['ERRORCODE']	
-			return final_res	
-		else:	
+			final_res = {}
+			if 'STATUS' in decrypted_res:
+				final_res ['status'] = decrypted_res['STATUS'].upper()
+			if 'UTRNUMBER' in decrypted_res:
+				final_res['utr_number'] =  decrypted_res['UTRNUMBER']
+			if 'MESSAGE' in decrypted_res:
+				final_res['message'] = decrypted_res['MESSAGE']
+			if 'ERRORCODE' in decrypted_res:
+				final_res['error_code'] = decrypted_res['ERRORCODE']
+			return final_res
+		else:
 			raise Exception(response.content)
 
-	def initiate_transaction_with_otp(self, filters, transaction_type_mapping):	
-		params = self.config	
-		filters['TXNTYPE'] = transaction_type_mapping[filters['TXNTYPE']]	
-		params.update(filters)	
-		self.params = params	
-		cipher_text = self.get_encrypted_request(params)	
-		response = self.send_request(3, cipher_text)	
-		if response.status_code == 200:	
-			decrypted_res = self.get_decrypted_response(response)	
-			final_res = {}	
-			if 'STATUS' in decrypted_res:	
-				final_res ['status'] = decrypted_res['STATUS'].upper()	
-			if 'UTRNUMBER' in decrypted_res:	
-				final_res['utr_number'] =  decrypted_res['UTRNUMBER']	
-			if 'MESSAGE' in decrypted_res:	
-				final_res['message'] = decrypted_res['MESSAGE']	
-			if 'ERRORCODE' in decrypted_res:	
-				final_res['error_code'] = decrypted_res['ERRORCODE']	
-			return final_res	
+	def initiate_transaction_with_otp(self, filters, transaction_type_mapping):
+		params = self.config
+		filters['TXNTYPE'] = transaction_type_mapping[filters['TXNTYPE']]
+		params.update(filters)
+		self.params = params
+		cipher_text = self.get_encrypted_request(params)
+		response = self.send_request(3, cipher_text)
+		if response.status_code == 200:
+			decrypted_res = self.get_decrypted_response(response)
+			final_res = {}
+			if 'STATUS' in decrypted_res:
+				final_res ['status'] = decrypted_res['STATUS'].upper()
+			if 'UTRNUMBER' in decrypted_res:
+				final_res['utr_number'] =  decrypted_res['UTRNUMBER']
+			if 'MESSAGE' in decrypted_res:
+				final_res['message'] = decrypted_res['MESSAGE']
+				if decrypted_res['MESSAGE'] in ['994006']:
+					final_res ['status'] = 'INVALID OTP'
+				if decrypted_res['MESSAGE'] in ['107889']:
+					final_res ['status'] = 'OTP EXPIRED'
+			if 'ERRORCODE' in decrypted_res:
+				final_res['error_code'] = decrypted_res['ERRORCODE']
+			return final_res
 		else:
 			raise Exception(response.content)
 
@@ -188,30 +192,30 @@ class Icici(object):
 		response = self.send_request(4, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.get_decrypted_response(response)
-			final_res = {}	
-			if 'STATUS' in decrypted_res:	
-				final_res ['status'] = decrypted_res['STATUS']	
-			if 'UTRNUMBER' in decrypted_res:	
-				final_res['utr_number'] =  decrypted_res['UTRNUMBER']	
-			if 'MESSAGE' in decrypted_res:	
-				final_res['message'] = decrypted_res['MESSAGE']	
-			return final_res	
+			final_res = {}
+			if 'STATUS' in decrypted_res:
+				final_res ['status'] = decrypted_res['STATUS']
+			if 'UTRNUMBER' in decrypted_res:
+				final_res['utr_number'] =  decrypted_res['UTRNUMBER']
+			if 'MESSAGE' in decrypted_res:
+				final_res['message'] = decrypted_res['MESSAGE']
+			return final_res
 		else:
 			raise Exception(response.content)
 
 	def send_otp(self, filters):
-		params = self.config	
-		params.update(filters)	
-		self.params = params	
-		cipher_text = self.get_encrypted_request(params)	
-		response = self.send_request(5, cipher_text)	
-		if response.status_code == 200:	
-			decrypted_res = self.get_decrypted_response(response)	
-			final_res = {}	
-			if 'RESPONSE' in decrypted_res:	
-				final_res ['status'] = decrypted_res['RESPONSE'].upper()	
-			if 'MESSAGE' in decrypted_res:	
-				final_res['message'] = decrypted_res['MESSAGE']	
-			return final_res	
-		else:	
+		params = self.config
+		params.update(filters)
+		self.params = params
+		cipher_text = self.get_encrypted_request(params)
+		response = self.send_request(5, cipher_text)
+		if response.status_code == 200:
+			decrypted_res = self.get_decrypted_response(response)
+			final_res = {}
+			if 'RESPONSE' in decrypted_res:
+				final_res ['status'] = decrypted_res['RESPONSE'].upper()
+			if 'MESSAGE' in decrypted_res:
+				final_res['message'] = decrypted_res['MESSAGE']
+			return final_res
+		else:
 			raise Exception(response.content)

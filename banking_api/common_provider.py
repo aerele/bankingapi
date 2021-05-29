@@ -43,6 +43,10 @@ class CommonProvider(object):
 			'ICICI': {'RTGS': 'RTG', 'NEFT': 'RGS', 'IMPS': 'IFS',	
 			'Internal Payments': 'OWN', 'External Payments': 'TPA',	
 			'Virtual A/c Payments': 'VAP'	
+			},
+			'Test': {'RTGS': 'RTG', 'NEFT': 'RGS', 'IMPS': 'IFS',	
+			'Internal Payments': 'OWN', 'External Payments': 'TPA',	
+			'Virtual A/c Payments': 'VAP'	
 			}	
 		}	
 		self.provider = provider
