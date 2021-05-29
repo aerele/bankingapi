@@ -47,7 +47,7 @@ class Test(object):
 			'status': 'PENDING For Processing'}
 
 	def initiate_transaction_with_otp(self, filters, transaction_type_mapping):
-		if filters['otp'] == 1234:
+		if filters['OTP'] == 1234:
 			return {
 			'status': 'SUCCESS',
 			'utr_number': '056953631'
@@ -82,37 +82,36 @@ class Test(object):
 			'status': 'FAILURE'}
 
 	def get_transaction_status(self, filters):
-		if filters["DEBITACC"] == '1234567890':
+		if filters["UNIQUEID"] == 'OBP12345':
 			return {
-			'status': 'SUCCESS',
-			'utr_number': '056953631'
-				}
-		
-		if filters["DEBITACC"] == '0123456789':
-			return {
-			'message': 'Invalid account number',
+			'message': 'Invalid aggregator id',
 			'error_code':'100518',
 			'status': 'FAILURE'}
 		
 		if filters["UNIQUEID"] == 'OBP123456':
 			return {
+			'status': 'SUCCESS',
+			'utr_number': '056953631'
+				}
+		if filters["UNIQUEID"] == 'OBP1234567':
+			{
 				'message':'Same unique id found',
 				'error_code':'32432',
 				'status': 'DUPLICATE'}
 		
-		if filters["CREDITACC"] == '123456789':
+		if filters["UNIQUEID"] == 'OBP12345678':
 			return {'message':'Transaction is suspect',
 			'error_code':'23213',
 			'status': 'PENDING'}
 		
-		if filters["DEBITACC"] == '1234567890':
+		if filters["UNIQUEID"] == 'OBP123456789':
 			return {'message':'Transaction initiated after CUTOFF',
 			'error_code':'23223',
 			'status': 'PENDING For Processing'}
 
 	def send_otp(self, filters):
 		otp = 1234
-		if otp == filters['otp']:
+		if filters["AMOUNT"] == '1.0':
 			return {
 				'status': 'SUCCESS',
 				'message': 'OTP sent successfully'
