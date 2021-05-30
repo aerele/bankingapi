@@ -84,7 +84,7 @@ class Test(object):
 	def get_transaction_status(self, filters):
 		if filters["UNIQUEID"] == 'OBP12345':
 			return {
-			'message': 'Invalid aggregator id',
+			'message': 'Transaction Failed',
 			'error_code':'100518',
 			'status': 'FAILURE'}
 		
