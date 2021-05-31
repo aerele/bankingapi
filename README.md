@@ -1,5 +1,13 @@
 ## Banking API
-This is a python library that helps to access various Banking APIs.
+This is a python library that gives an interface for implementing various API providers.
+
+Reach us out at hello@aerele.in to connect with our team.
+
+#### License
+
+GNU/General Public License (v3) (see [license.txt](license.txt))
+
+The Banking API code is licensed as GNU General Public License (v3) and the copyright is owned by Aerele Technologies Pvt Ltd (Aerele) and Contributors.
 
 ### Installation
 
@@ -28,43 +36,30 @@ print(balance)
 print(stmt)
 ```
 
-### Conventions followed
+### Conventions Followed
 
- - provider name - Capitalize the first letters eg: Test Provider
- - provider's python file name - Snake Case eg: test_provider
- - class name - Camel Case eg: TestProvider
+ - Provider name - Capitalize the first letters eg: Test Provider
+ - Provider's python file name - Snake Case eg: test_provider
+ - Class name - Camel Case eg: TestProvider
 
 ### For new banking api implementation
 
 Just create a provider's api python file inside ```banking_api``` module
 
-### Initial implemented functions
+#### Add the below functions
 
  - ```fetch_balance``` 
-
-    Example response format:
-    ```
-    {'account_no':'1789123456789', 'date': '03/12/20 09:37:22', 'balance': '960368.91', 'currency': 'INR'}
-    ```
-  
  - ```fetch_statement```
+ - ```initiate_transaction_without_otp``` 
+ - ```initiate_transaction_with_otp```
+ - ```get_transaction_status```
+ - ```send_otp```
 
-    Example response format:
-    ```
-    [{'txn_date':'03-12-2020 08:16:34',
-    'txn_id':'S32528713',
-    'credit': '92,18,756.36',
-    'debit': 0,
-    'balance': '1,22,18,756.36',
-    'remarks': 'No remarks found',
-    'account_no': '106151000003'
-    },
-    {'txn_date':'02-12-2020 08:16:34',
-    'txn_id':'S52528715',
-    'credit': '12,18,756.36',
-    'debit': 0,
-    'balance': '1,32,18,756.36',
-    'remarks': 'No remarks found',
-    'account_no': '106151000003'
-    }]
-    ```
+
+#### Note
+
+1. Refer [Common Provider](common_provider.py ) and [Test API Provider](test.py) for request and response format.
+2. If ```transaction_type_mapping``` not found for your api provider. Just include it under the ```Common Provider``` init function.
+
+
+### Show some ❤️ by starring :star: :arrow_up: our repo!
