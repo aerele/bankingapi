@@ -19,6 +19,27 @@ class Test(object):
 			"message":"Invalid account",
 			"status":"FAILURE"}
 
+	def fetch_statement(self, filters):
+		return [{
+		'cheque_no': {'21321321'},
+		'txn_date':'03-12-2020 08:16:34',
+		'txn_id':'S32528713',
+		'credit': '92,18,756.36',
+		'debit': 0,
+		'balance': '1,22,18,756.36',
+		'remarks': 'No remarks found',
+		'account_no': '106151000003'
+		},
+		{'cheque_no': {'21321321'},
+		'txn_date':'02-12-2020 08:16:34',
+		'txn_id':'S52528715',
+		'credit': '12,18,756.36',
+		'debit': 0,
+		'balance': '1,32,18,756.36',
+		'remarks': 'No remarks found',
+		'account_no': '106151000003'
+		}]
+
 	def initiate_transaction_without_otp(self, filters, transaction_type_mapping):
 		if filters["DEBITACC"] == '1234567890':
 			return {
