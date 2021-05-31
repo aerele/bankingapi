@@ -9,7 +9,9 @@ class Test(object):
 
 	def fetch_balance(self, filters):
 		if filters['ACCOUNTNO'] == '1234567890': 
-			return {"date":"18/03/21 10:57:21",
+			return {
+				"account_no":"1789123456789",
+				"date":"18/03/21 10:57:21",
 				"currency":"INR",
 				"balance":"9356851.92",
 				"status":"SUCCESS"}
@@ -48,11 +50,6 @@ class Test(object):
 
 	def initiate_transaction_with_otp(self, filters, transaction_type_mapping):
 		if filters['OTP'] == 1234:
-			return {
-			'status': 'SUCCESS',
-			'utr_number': '056953631'
-				}
-		elif filters["DEBITACC"] == '1234567890':
 			return {
 			'status': 'SUCCESS',
 			'utr_number': '056953631'
