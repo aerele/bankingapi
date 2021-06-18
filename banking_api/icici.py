@@ -39,8 +39,9 @@ class Icici(object):
 		self.get_headers()
 
 		# url dict for sandbox & live
-		# add transaction with otp api endpoint - 3rd index
+		# add transaction with otp api endpoint - 4th index
 		# add send otp api endpoint	- 5th index
+		# add account statement pagination api endpoint - 6th index
 		if use_sandbox:
 			self.urls =  [
 				'https://apibankingonesandbox.icicibank.com/api/Corporate/CIB/v1/BalanceInquiry',
@@ -105,7 +106,7 @@ class Icici(object):
 		else:
 			response = requests.request("POST", self.urls[url_id], headers=self.headers, data=cipher_text)
 		return response
-		
+
 
 	def fetch_balance(self, filters):
 		params = self.config
@@ -116,11 +117,22 @@ class Icici(object):
 		response = self.send_request(0, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.get_decrypted_response(response)
-			return json.dumps(json.loads(decrypted_res), indent=4, sort_keys=False)
+			final_res = {}
+			if 'RESPONSE' in decrypted_res:
+				final_res ['status'] = decrypted_res['RESPONSE'].upper()
+			if 'ACCOUNTNO' in decrypted_res:
+				final_res['account_no'] =  decrypted_res['ACCOUNTNO']
+			if 'DATE' in decrypted_res:
+				final_res['date'] =  decrypted_res['DATE']
+			if 'CURRENCY' in decrypted_res:
+				final_res['currency'] =  decrypted_res['CURRENCY']
+			if 'EFFECTIVEBAL' in decrypted_res:
+				final_res['balance'] =  decrypted_res['EFFECTIVEBAL']
+			if 'MESSAGE' in decrypted_res:
+				final_res['message'] = decrypted_res['MESSAGE']
+			return final_res
 		else:
-			return json.dumps(json.loads(response.content), indent=4, sort_keys=False)
-		
-
+			raise Exception(response.content)
 
 	def fetch_statement(self, filters):
 		params = self.config
@@ -164,7 +176,7 @@ class Icici(object):
 		params.update(filters)
 		self.params = params
 		cipher_text = self.get_encrypted_request(params)
-		response = self.send_request(3, cipher_text)
+		response = self.send_request(4, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.get_decrypted_response(response)
 			final_res = {}
@@ -189,7 +201,7 @@ class Icici(object):
 		params.pop('AGGRNAME')
 		params.update(filters)
 		cipher_text = self.get_encrypted_request(params)
-		response = self.send_request(4, cipher_text)
+		response = self.send_request(3, cipher_text)
 		if response.status_code == 200:
 			decrypted_res = self.get_decrypted_response(response)
 			final_res = {}

@@ -58,6 +58,9 @@ class CommonProvider(object):
 	def fetch_statement(self, filters):
 		return self.provider_module.fetch_statement(filters)
 
+	def fetch_statement_with_pagination(self, filters):
+		return self.provider_module.fetch_statement_with_pagination(filters)
+
 	def initiate_transaction_without_otp(self, filters):
 		return self.provider_module.initiate_transaction_without_otp(filters, self.transaction_type_mapping[self.provider])
 
