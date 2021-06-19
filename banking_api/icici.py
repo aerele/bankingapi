@@ -70,11 +70,13 @@ class Icici(object):
 		return rnd
 
 	def bank_statement_decrypted_response(self, response):
-		response ={}
+		response = json.loads(response.content)
+		rsa_key = RSA.importKey(open(self.file_paths['private_key'], "rb").read())
+		cipher = Cipher_PKCS1_v1_5.new(rsa_key)
 		Enckey = base64.b64decode(response['encryptedKey'])
 		Deckey = cipher.decrypt(Enckey, b'x')
 		encData = base64.b64decode(response['encryptedData']); 
-		IV = generate_aes_key()
+		IV = self.generate_aes_key()
 		decipher = AES.new(Deckey, AES.MODE_CBC, IV)
 		plaintext = decipher.decrypt(encData)
 		return plaintext
@@ -146,7 +148,23 @@ class Icici(object):
 		else:
 			return json.dumps(json.loads(response.content), indent=4, sort_keys=False)
 
+	def fetch_statement_with_pagination(self, filters):
+		params = self.config
+		params.pop('AGGRNAME')
+		params.update(filters)
+		cipher_text = self.get_encrypted_request(params)
+		response = self.send_request(6, cipher_text)
 	
+		if response.status_code == 200:
+			decrypted_res = self.bank_statement_decrypted_response(response)
+			final_res = {}
+			if 'RESPONSE' in decrypted_res:
+				final_res ['status'] = decrypted_res['RESPONSE'].upper()
+			if 'Record' in decrypted_res:
+				final_res ['record'] = decrypted_res['Record']
+			return final_res
+		else:
+			raise Exception(response.content)
 
 	def initiate_transaction_without_otp(self, filters, transaction_type_mapping):
 		params = self.config
