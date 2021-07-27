@@ -168,9 +168,9 @@ class Icici(object):
 
 	def initiate_transaction_without_otp(self, filters, transaction_type_mapping):
 		params = self.config
+		filters['TXNTYPE'] = transaction_type_mapping[filters['TXNTYPE']]
 		params.update(filters)
 		self.params = params
-		filters['TXNTYPE'] = transaction_type_mapping[filters['TXNTYPE']]	
 		cipher_text = self.get_encrypted_request(params)
 		response = self.send_request(2, cipher_text)
 		if response.status_code == 200:
