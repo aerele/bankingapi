@@ -2,9 +2,6 @@
 
 class Test(object):
 	def __init__(self, config=None, use_sandbox = None, proxy_dict = None, file_paths = None, site_path=''):
-		"""
-		:param config: merchant_id, order_id, user_info, txn_info
-		"""
 		self.config = config
 
 	def fetch_balance(self, filters):
@@ -20,25 +17,44 @@ class Test(object):
 			"status":"FAILURE"}
 
 	def fetch_statement(self, filters):
-		return [{
-		'cheque_no': {'21321321'},
-		'txn_date':'03-12-2020 08:16:34',
-		'txn_id':'S32528713',
-		'credit': '92,18,756.36',
-		'debit': 0,
-		'balance': '1,22,18,756.36',
-		'remarks': 'No remarks found',
-		'account_no': '106151000003'
-		},
-		{'cheque_no': {'21321321'},
-		'txn_date':'02-12-2020 08:16:34',
-		'txn_id':'S52528715',
-		'credit': '12,18,756.36',
-		'debit': 0,
-		'balance': '1,32,18,756.36',
-		'remarks': 'No remarks found',
-		'account_no': '106151000003'
-		}]
+		return {
+		'status': 'SUCCESS',
+		'record':[{"CHEQUENO":{},
+		"TXNDATE":"08-01-2018 13:16:22",
+		"REMARKS":"TRFR TO:",
+		"AMOUNT":"6,500.00",
+		"BALANCE":"2,36,980.40",
+		"VALUEDATE":"03-07-2015",
+		"TYPE":"DR","TRANSACTIONID":"M328746"},
+		{"CHEQUENO":{},
+		"TXNDATE":"08-01-2018 13:16:23",
+		"REMARKS":"TRFR TO:",
+		"AMOUNT":"7,500.00",
+		"BALANCE":"2,29,480.40",
+		"VALUEDATE":"03-07-2015",
+		"TYPE":"DR",
+		"TRANSACTIONID":"M328755"}]
+		}
+	
+	def fetch_statement_with_pagination(self, filters):
+		return {
+		'status': 'SUCCESS',
+		'record':[{"CHEQUENO":{},
+		"TXNDATE":"08-01-2018 13:16:22",
+		"REMARKS":"TRFR TO:",
+		"AMOUNT":"6,500.00",
+		"BALANCE":"2,36,980.40",
+		"VALUEDATE":"03-07-2015",
+		"TYPE":"DR","TRANSACTIONID":"M328746"},
+		{"CHEQUENO":{},
+		"TXNDATE":"08-01-2018 13:16:23",
+		"REMARKS":"TRFR TO:",
+		"AMOUNT":"7,500.00",
+		"BALANCE":"2,29,480.40",
+		"VALUEDATE":"03-07-2015",
+		"TYPE":"DR",
+		"TRANSACTIONID":"M328755"}]
+		}
 
 	def initiate_transaction_without_otp(self, filters, transaction_type_mapping):
 		if filters["DEBITACC"] == '1234567890':
