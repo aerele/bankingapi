@@ -9,7 +9,7 @@ from Crypto.Cipher import PKCS1_v1_5 as Cipher_PKCS1_v1_5
 from Crypto.Cipher import AES
 import Crypto.Cipher.AES
 import Crypto.Random
-
+from Crypto.Util.Padding import unpad
 
 class Icici(object):
 	def __init__(self, config=None, use_sandbox = None, proxy_dict = None, file_paths = None, site_path=''):
@@ -54,7 +54,10 @@ class Icici(object):
 				'https://apibankingone.icicibank.com/api/Corporate/CIB/v1/BalanceInquiry',
 				'https://apibankingone.icicibank.com/api/Corporate/CIB/v1/AccountStatement',
 				'https://apibankingone.icicibank.com/api/Corporate/CIB/v1/Transaction',
-				'https://apibankingone.icicibank.com/api/Corporate/CIB/v1/TransactionInquiry'
+				'https://apibankingone.icicibank.com/api/Corporate/CIB/v1/TransactionInquiry',
+				'https://apibankingone.icicibank.com/api/Corporate/CIB/v1/TransactionOTP',
+				'https://apibankingone.icicibank.com/api/Corporate/CIB/v1/Create',
+				'https://apibankingone.icicibank.com/api/Corporate/CIB/v1/AccountStatement'
 				]
 
 	def get_headers(self):
@@ -66,8 +69,16 @@ class Icici(object):
 		self.headers = headers
 
 	def generate_aes_key(self):
-		rnd = Crypto.Random.OSRNG.posix.new().read(AES.block_size)
-		return rnd
+		import random
+		letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+		result_str = ''.join(random.choice(letters) for i in range(16))
+		return result_str
+#		rnd = Crypto.Random.OSRNG.posix.new().read(AES.block_size)
+#		return rnd
+
+
+	def _unpad(self , s):
+		return s[:-ord(s[len(s)-1:])]
 
 	def bank_statement_decrypted_response(self, response):
 		response = json.loads(response.content)
@@ -75,9 +86,9 @@ class Icici(object):
 		cipher = Cipher_PKCS1_v1_5.new(rsa_key)
 		Enckey = base64.b64decode(response['encryptedKey'])
 		Deckey = cipher.decrypt(Enckey, b'x')
-		encData = base64.b64decode(response['encryptedData']); 
+		encData = base64.b64decode(response['encryptedData']);
 		IV = self.generate_aes_key()
-		decipher = AES.new(Deckey, AES.MODE_CBC, IV)
+		decipher = AES.new(Deckey, AES.MODE_CBC, encData[:16])
 		plaintext = decipher.decrypt(encData)
 		return plaintext
 
@@ -154,9 +165,9 @@ class Icici(object):
 		params.update(filters)
 		cipher_text = self.get_encrypted_request(params)
 		response = self.send_request(6, cipher_text)
-	
 		if response.status_code == 200:
 			decrypted_res = self.bank_statement_decrypted_response(response)
+			decrypted_res = json.loads(self. _unpad(decrypted_res[16:]).decode())
 			final_res = {}
 			if 'RESPONSE' in decrypted_res:
 				final_res ['status'] = decrypted_res['RESPONSE'].upper()
