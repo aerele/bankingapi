@@ -90,7 +90,6 @@ class Icici(object):
 		IV = self.generate_aes_key()
 		decipher = AES.new(Deckey, AES.MODE_CBC, encData[:16])
 		plaintext = decipher.decrypt(encData)
-		print(plaintext)
 		return plaintext
 
 	def get_decrypted_response(self, response):
