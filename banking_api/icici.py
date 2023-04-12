@@ -47,7 +47,10 @@ class Icici(object):
 				'https://apibankingonesandbox.icicibank.com/api/Corporate/CIB/v1/BalanceInquiry',
 				'https://apibankingonesandbox.icicibank.com/api/Corporate/CIB/v1/AccountStatement',
 				'https://apibankingonesandbox.icicibank.com/api/Corporate/CIB/v1/Transaction',
-				'https://apibankingonesandbox.icicibank.com/api/Corporate/CIB/v1/TransactionInquiry'
+				'https://apibankingonesandbox.icicibank.com/api/Corporate/CIB/v1/TransactionInquiry',
+				'https://apibankingonesandbox.icicibank.com/api/Corporate/CIB/v1/TransactionOTP',
+				'https://apibankingonesandbox.icicibank.com/api/Corporate/CIB/v1/Create',
+				'https://apibankingonesandbox.icicibank.com/api/Corporate/CIB/v1/AccountStatement'
 				]
 		else:
 			self.urls = [
